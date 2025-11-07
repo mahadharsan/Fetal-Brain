@@ -1,0 +1,3 @@
+# Large model files
+brain_segmentation_model.pth
+src/training/best_model.pth
