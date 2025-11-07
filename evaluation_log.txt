@@ -1,0 +1,33 @@
+2025-10-20 17:17:31,056 - INFO - Initialized evaluator on device: cuda
+2025-10-20 17:17:31,057 - INFO - ============================================================
+2025-10-20 17:17:31,057 - INFO - STARTING COMPREHENSIVE MODEL EVALUATION
+2025-10-20 17:17:31,057 - INFO - ============================================================
+2025-10-20 17:17:31,057 - ERROR - Failed to load model: No module named 'src'
+2025-10-20 17:17:31,057 - ERROR - Evaluation failed. Check logs for details.
+2025-10-20 17:23:05,188 - INFO - Initialized evaluator on device: cuda
+2025-10-20 17:23:05,188 - INFO - ============================================================
+2025-10-20 17:23:05,188 - INFO - STARTING COMPREHENSIVE MODEL EVALUATION
+2025-10-20 17:23:05,188 - INFO - ============================================================
+2025-10-20 17:23:05,475 - INFO - Model loaded successfully
+2025-10-20 17:23:06,605 - INFO - Test dataset prepared with 89 samples
+2025-10-20 17:23:06,605 - INFO - Evaluating on test set...
+2025-10-20 17:23:09,224 - INFO - 
+============================================================
+2025-10-20 17:23:09,224 - INFO - SUMMARY STATISTICS
+2025-10-20 17:23:09,224 - INFO - ============================================================
+2025-10-20 17:23:09,224 - INFO - Dice Score: 0.7137 ± 0.3183
+2025-10-20 17:23:09,224 - INFO - IoU: 0.6299 ± 0.3087
+2025-10-20 17:23:09,224 - INFO - Sensitivity: 0.7917
+2025-10-20 17:23:09,224 - INFO - Specificity: 0.9987
+2025-10-20 17:23:09,224 - INFO - Precision: 0.8067
+2025-10-20 17:23:09,229 - INFO - JSON report saved to evaluation_results\evaluation_results.json
+2025-10-20 17:23:09,230 - INFO - Markdown report saved to evaluation_results\evaluation_report.md
+2025-10-20 17:23:09,234 - INFO - Per-sample results saved to evaluation_results\per_sample_results.csv
+2025-10-20 17:23:11,279 - INFO - Evaluation plots saved to evaluation_results\evaluation_plots.png
+2025-10-20 17:23:11,287 - INFO - Severity analysis saved to evaluation_results\severity_analysis.csv
+2025-10-20 17:23:11,287 - INFO - Evaluation complete!
+2025-10-20 17:23:11,287 - INFO - 
+============================================================
+2025-10-20 17:23:11,287 - INFO - EVALUATION COMPLETED SUCCESSFULLY
+2025-10-20 17:23:11,287 - INFO - Results saved to: evaluation_results
+2025-10-20 17:23:11,287 - INFO - ============================================================

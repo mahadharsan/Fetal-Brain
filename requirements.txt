@@ -1,0 +1,23 @@
+# Core ML (already installed)
+torch
+torchvision
+torchaudio
+
+# Image processing
+opencv-python==4.8.1.78  # Changed from 4.8.1 to 4.8.1.78
+Pillow==10.1.0
+
+# Data handling
+numpy==1.24.3
+pandas==2.0.3
+
+# Visualization
+matplotlib==3.7.1
+seaborn==0.13.0  # Add this for evaluation plots
+
+# ML utilities
+scikit-learn==1.3.0
+tqdm==4.66.1
+
+# For later phases
+streamlit==1.28.0
