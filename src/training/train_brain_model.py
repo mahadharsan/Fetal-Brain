@@ -43,12 +43,17 @@ def dice_coefficient(pred, target, smooth=1e-6):
     dice = (2. * intersection + smooth) / (union + smooth)
     return dice
 
-def train_brain_model():
+
+def main():
+    """
+    Main training function for Brain Segmentation.
+    """
+    import matplotlib.pyplot as plt
     print("="*60)
-    print("BRAIN SEGMENTATION MODEL TRAINING")
+    print("BRAIN SEGMENTATION TRAINING")
     print("="*60)
     
-    # Create datasets
+    # CREATE DATASETS
     print("\n1. Loading datasets...")
     train_dataset = BrainSegmentationDataset(
         image_dir=IMAGE_DIR,
@@ -58,7 +63,6 @@ def train_brain_model():
         img_size=IMG_SIZE,
         transform=True
     )
-    
     val_dataset = BrainSegmentationDataset(
         image_dir=IMAGE_DIR,
         mask_dir=MASK_DIR,
@@ -67,72 +71,79 @@ def train_brain_model():
         img_size=IMG_SIZE,
         transform=False
     )
+    print(f"   Training samples: {len(train_dataset)}")
+    print(f"   Validation samples: {len(val_dataset)}")
     
-    # Create dataloaders
+    # CREATE DATA LOADERS
     train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False)
     
-    # Create model
+    # CREATE MODEL
     print("\n2. Creating model...")
     model = UNet(in_channels=1, out_channels=1).to(DEVICE)
     print(f"   Model on {DEVICE}")
     
-    # Loss and optimizer
+    # LOSS FUNCTION AND OPTIMIZER
     criterion = nn.BCEWithLogitsLoss()
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
+    scheduler = optim.lr_scheduler.ReduceLROnPlateau(
+        optimizer, mode='max', factor=0.5, patience=5, verbose=True
+    )
     
-    # Training loop
-    print("\n3. Training...")
+    # TRAINING LOOP
+    print("\n3. Starting training...")
+    print("-"*40)
     best_dice = 0
+    train_losses = []
+    val_losses = []
+    train_dices = []
+    val_dices = []
     
     for epoch in range(NUM_EPOCHS):
         # Training phase
         model.train()
         train_loss = 0
         train_dice = 0
-        
-        pbar = tqdm(train_loader, desc=f'Epoch {epoch+1}/{NUM_EPOCHS}')
-        for batch in pbar:
+        for batch in tqdm(train_loader, desc=f'Epoch {epoch+1}/{NUM_EPOCHS}'):
             images = batch['image'].to(DEVICE)
             masks = batch['mask'].to(DEVICE)
-            
-            # Forward pass
             predictions = model(images)
             loss = criterion(predictions, masks)
             dice = dice_coefficient(predictions, masks)
-            
-            # Backward pass
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
-            
             train_loss += loss.item()
             train_dice += dice.item()
-            
-            pbar.set_postfix({'loss': f'{loss.item():.4f}', 'dice': f'{dice.item():.4f}'})
+        avg_train_loss = train_loss / len(train_loader)
+        avg_train_dice = train_dice / len(train_loader)
         
         # Validation phase
         model.eval()
         val_loss = 0
         val_dice = 0
-        
         with torch.no_grad():
             for batch in val_loader:
                 images = batch['image'].to(DEVICE)
                 masks = batch['mask'].to(DEVICE)
-                
                 predictions = model(images)
                 loss = criterion(predictions, masks)
                 dice = dice_coefficient(predictions, masks)
-                
                 val_loss += loss.item()
                 val_dice += dice.item()
-        
-        # Calculate averages
-        avg_train_dice = train_dice / len(train_loader)
+        avg_val_loss = val_loss / len(val_loader)
         avg_val_dice = val_dice / len(val_loader)
         
-        print(f"\nEpoch {epoch+1}: Train Dice: {avg_train_dice:.4f}, Val Dice: {avg_val_dice:.4f}")
+        # Print metrics
+        print(f"\nEpoch {epoch+1}/{NUM_EPOCHS}")
+        print(f"   Train - Loss: {avg_train_loss:.4f}, Dice: {avg_train_dice:.4f}")
+        print(f"   Val   - Loss: {avg_val_loss:.4f}, Dice: {avg_val_dice:.4f}")
+        
+        # Save metrics
+        train_losses.append(avg_train_loss)
+        val_losses.append(avg_val_loss)
+        train_dices.append(avg_train_dice)
+        val_dices.append(avg_val_dice)
         
         # Save best model
         if avg_val_dice > best_dice:
@@ -144,11 +155,35 @@ def train_brain_model():
                 'best_dice': best_dice,
             }, 'brain_segmentation_model.pth')
             print(f"   ✓ Saved new best model (Dice: {best_dice:.4f})")
+        
+    # PLOT TRAINING HISTORY
+    print("\n4. Plotting training history...")
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4))
+    ax1.plot(train_losses, label='Train Loss')
+    ax1.plot(val_losses, label='Val Loss')
+    ax1.set_xlabel('Epoch')
+    ax1.set_ylabel('Loss')
+    ax1.set_title('Training and Validation Loss')
+    ax1.legend()
+    ax1.grid(True)
+
+    ax2.plot(train_dices, label='Train Dice')
+    ax2.plot(val_dices, label='Val Dice')
+    ax2.set_xlabel('Epoch')
+    ax2.set_ylabel('Dice Coefficient')
+    ax2.set_title('Training and Validation Dice Score')
+    ax2.legend()
+    ax2.grid(True)
+
+    plt.tight_layout()
+    plt.savefig('brain_training_history.png')
+    plt.show()
     
     print("\n" + "="*60)
-    print(f"Training complete! Best validation Dice: {best_dice:.4f}")
-    print("Model saved as: brain_segmentation_model.pth")
+    print("TRAINING COMPLETE!")
+    print(f"Best validation Dice score: {best_dice:.4f}")
+    print(f"Model saved as: brain_segmentation_model.pth")
     print("="*60)
 
 if __name__ == "__main__":
-    train_brain_model()
+    main()
