@@ -1,0 +1,65 @@
+============================================================
+GRAD-CAM VALIDATION REPORT
+============================================================
+
+
+Small Normal
+----------------------------------------
+Filename: Patient00832_Plane3_2_of_3.png
+Ventricle Width: 4.33mm
+Classification: Normal
+Confidence: 54.4%
+
+Attention Metrics:
+  - Ventricle coverage: 78.5% (% of ventricle with attention)
+  - Attention precision: 23.6% (% of attention on ventricle)
+  - Ventricle pixels: 637
+  - High attention pixels: 2123
+  - Overlap pixels: 500
+
+  ✓ VALIDATION: PASS - Good attention alignment
+
+
+Medium Borderline
+----------------------------------------
+Filename: Patient01301_Plane3_3_of_7.png
+Ventricle Width: 8.13mm
+Classification: Normal
+Confidence: 58.1%
+
+Attention Metrics:
+  - Ventricle coverage: 80.0% (% of ventricle with attention)
+  - Attention precision: 17.8% (% of attention on ventricle)
+  - Ventricle pixels: 494
+  - High attention pixels: 2215
+  - Overlap pixels: 395
+
+  ✓ VALIDATION: PASS - Good attention alignment
+
+
+Large Mild VM 
+----------------------------------------
+Filename: Patient01123_Plane3_4_of_4.png
+Ventricle Width: 10.37mm
+Classification: Mild Ventriculomegaly
+Confidence: 57.6%
+
+Attention Metrics:
+  - Ventricle coverage: 55.6% (% of ventricle with attention)
+  - Attention precision: 21.9% (% of attention on ventricle)
+  - Ventricle pixels: 266
+  - High attention pixels: 675
+  - Overlap pixels: 148
+
+  ~ VALIDATION: MARGINAL - Some misalignment
+
+============================================================
+SUMMARY
+============================================================
+
+Grad-CAM should show:
+  1. High attention (red/yellow) over ventricle regions
+  2. Low attention on brain edges and artifacts
+  3. Stronger attention for larger ventricles
+
+Expected overlap: >60% for good explainability

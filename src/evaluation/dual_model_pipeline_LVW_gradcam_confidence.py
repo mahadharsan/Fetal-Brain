@@ -134,13 +134,14 @@ class CompleteDiagnosticPipeline:
         ))
         print(f"✓ Loaded pixel sizes for {len(self.pixel_size_dict)} images")
     
-    def preprocess_image(self, image_path: str) -> Tuple[np.ndarray, torch.Tensor]:
+    def preprocess_image(self, image_path: str) -> Tuple[np.ndarray, torch.Tensor, tuple]:
         """
         Load and preprocess ultrasound image.
+        Returns image_array, image_tensor, AND original_shape
         """
         # Load image
         image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
-        original_shape = image.shape
+        original_shape = image.shape  # (height, width)
         
         # Resize to model input size
         image_resized = cv2.resize(image, (256, 256))
@@ -149,7 +150,7 @@ class CompleteDiagnosticPipeline:
         image_tensor = torch.from_numpy(image_resized.astype(np.float32) / 255.0)
         image_tensor = image_tensor.unsqueeze(0).unsqueeze(0).to(self.device)
         
-        return image_resized, image_tensor
+        return image_resized, image_tensor, original_shape  # ADDED original_shape
     
     def segment_structures(self, image_tensor: torch.Tensor) -> Dict:
         """
@@ -251,18 +252,30 @@ class CompleteDiagnosticPipeline:
         """
         Complete analysis of a single ultrasound image WITH EXPLAINABILITY.
         """
-        # Get actual pixel spacing
+        # Get actual pixel spacing from CSV
         image_name = Path(image_path).name
         if image_name in self.pixel_size_dict:
-            actual_pixel_spacing = self.pixel_size_dict[image_name]
+            base_pixel_spacing = self.pixel_size_dict[image_name]
         else:
             print(f"⚠️ WARNING: No pixel size found for {image_name}, using default 0.3mm")
-            actual_pixel_spacing = 0.3
+            base_pixel_spacing = 0.3
         
-        self.pixel_spacing_mm = actual_pixel_spacing
-
-        # Preprocess
-        image_array, image_tensor = self.preprocess_image(image_path)
+        # Preprocess - NOW gets original_shape too
+        image_array, image_tensor, original_shape = self.preprocess_image(image_path)
+        
+        # Calculate scaling factor: original dimension / resized dimension
+        original_height, original_width = original_shape
+        scaling_factor_width = original_width / 256
+        scaling_factor_height = original_height / 256
+        scaling_factor = (scaling_factor_width + scaling_factor_height) / 2  # Average both dimensions
+        
+        # Adjust pixel spacing for the 256x256 resized image
+        self.pixel_spacing_mm = base_pixel_spacing * scaling_factor
+        
+        print(f"📏 {image_name}: Original={original_width}×{original_height}, "
+            f"Base spacing={base_pixel_spacing:.3f}mm, "
+            f"Scaling={scaling_factor:.2f}x, "
+            f"Adjusted spacing={self.pixel_spacing_mm:.3f}mm")
         
         # Segment
         seg_results = self.segment_structures(image_tensor)
