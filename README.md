@@ -93,7 +93,7 @@ Without calibration, measurements are underestimated by 2-3×, risking misclassi
 
 ## License
 
-MIT License - Copyright (c) 2024 Mahadharsan & Bupesh Kumar Ramesh Kumar
+MIT License - Copyright (c) 2024 Mahadharsan Ravichandran & Bupesh Kumar Ramesh Kumar
 
 ## References
 
