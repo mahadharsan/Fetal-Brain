@@ -154,7 +154,7 @@ class CompleteDiagnosticPipeline:
     
     def segment_structures(self, image_tensor: torch.Tensor) -> Dict:
         """
-        This runs BOTH your trained models.
+        This runs BOTH trained models.
         Returns masks AND predictions.
         """
         with torch.no_grad():

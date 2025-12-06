@@ -15,7 +15,7 @@ from tqdm import tqdm
 # Add parent directory to path
 sys.path.append(str(Path(__file__).parent.parent.parent))
 
-# Import your latest pipeline
+# Import latest pipeline
 from src.evaluation.dual_model_pipeline_LVW_gradcam_confidence import CompleteDiagnosticPipeline
 
 def load_test_set():
@@ -308,4 +308,4 @@ if __name__ == "__main__":
     if zero_cases:
         print("  2. zero_ventricle_cases.csv - Cases with no ventricle detection")
     print("  3. test_set_evaluation_results.png - Visualizations")
-    print("\nYou can now use these results for your final presentation!")
+    print("\nYou can now use these results for final presentation!")

@@ -38,7 +38,7 @@ def validate_gradcam_cases():
         pixel_size_csv='data/raw/trans_ventricular/Trans-ventricular-Pixel-Size.csv'
     )
     
-    # Test cases - UPDATED with your actual files
+    # Test cases - UPDATED with actual files
     test_cases = {
         'Small Normal': 'Patient00832_Plane3_2_of_3',
         'Medium Borderline': 'Patient01301_Plane3_3_of_7',

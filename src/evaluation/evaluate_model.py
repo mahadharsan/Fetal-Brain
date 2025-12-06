@@ -1,7 +1,7 @@
 """
 COMPREHENSIVE MODEL EVALUATION SUITE
 =====================================
-Author: [Your Name]
+Author: MD
 Date: 2024
 Purpose: Rigorous evaluation of fetal ventricle segmentation model
 Following medical imaging evaluation standards and software engineering best practices
