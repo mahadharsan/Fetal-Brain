@@ -1,0 +1,19 @@
+filename,ventricle_width,confidence,ventricle_pixels,reason
+Patient01659_Plane3_2_of_3,0.0,24.994364,0,No ventricles detected
+Patient01296_Plane3_4_of_5,0.0,24.99824,0,No ventricles detected
+Patient01434_Plane3_2_of_6,0.0,24.9955,0,No ventricles detected
+Patient01201_Plane3_1_of_1,0.0,24.986193,0,No ventricles detected
+Patient01022_Plane3_2_of_5,0.0,24.997053,0,No ventricles detected
+Patient00926_Plane3_2_of_4,0.0,24.99767,0,No ventricles detected
+Patient01583_Plane3_1_of_2,0.0,24.9895,0,No ventricles detected
+Patient01331_Plane3_1_of_3,0.0,24.999874,0,No ventricles detected
+Patient00858_Plane3_3_of_3,0.0,24.996801,0,No ventricles detected
+Patient00851_Plane3_2_of_3,0.0,24.999878,0,No ventricles detected
+Patient01309_Plane3_1_of_3,0.0,24.988157,0,No ventricles detected
+Patient01118_Plane3_5_of_6,0.0,24.996414,0,No ventricles detected
+Patient01126_Plane3_2_of_5,0.0,24.999872,0,No ventricles detected
+Patient01098_Plane3_1_of_7,0.0,24.997925,0,No ventricles detected
+Patient00738_Plane3_1_of_4,0.0,24.993526,0,No ventricles detected
+Patient01508_Plane3_2_of_2,0.0,24.999691,0,No ventricles detected
+Patient00847_Plane3_1_of_4,0.0,24.998976,0,No ventricles detected
+Patient01130_Plane3_1_of_2,0.0,24.999878,0,No ventricles detected
