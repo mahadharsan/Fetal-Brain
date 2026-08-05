@@ -2,9 +2,14 @@
 
 # Automated Fetal Ventriculomegaly Detection System
 
-End-to-end solo project: data pipeline, dual U-Net modeling, measurement calibration, explainability, and evaluation.
-
 Ventriculomegaly — enlargement of the brain's fluid-filled ventricles — is one of the most common findings on prenatal ultrasound and can signal developmental issues if missed. This system automates the measurement doctors currently do by hand, using two neural networks: one to find the brain, one to find the ventricles inside it.
+
+## Why This Matters
+
+Ventriculomegaly — enlargement of the brain's fluid-filled ventricles — is one of the most common fetal brain findings on ultrasound, and its clinical significance depends entirely on precise measurement. Mild cases (10-15mm) carry a good prognosis (~92% typical neurodevelopment), while severe cases (>15mm) are frequently linked to underlying structural abnormalities and carry meaningfully higher risk. Because the diagnostic categories are separated by just millimeters, and doctors currently measure by hand from ultrasound images, small errors can shift a case into the wrong risk category — this system automates that measurement with clinical-grade calibration to help make it more consistent.
+
+
+End-to-end solo project: data pipeline, dual U-Net modeling, measurement calibration, explainability, and evaluation.
 
 Deep learning system for detecting and measuring fetal ventriculomegaly in ultrasound images using dual U-Net architecture. Automates lateral ventricle width measurement for prenatal diagnosis (diagnostic threshold: 10mm).
 
