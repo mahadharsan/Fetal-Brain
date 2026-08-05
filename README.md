@@ -2,12 +2,20 @@
 
 # Automated Fetal Ventriculomegaly Detection System
 
-Ventriculomegaly — enlargement of the brain's fluid-filled ventricles — is one of the most common findings on prenatal ultrasound and can signal developmental issues if missed. This system automates the measurement doctors currently do by hand, using two neural networks: one to find the brain, one to find the ventricles inside it.
+## What Is Ventriculomegaly?
+During pregnancy, doctors routinely screen the fetal brain for a condition called ventriculomegaly — an enlargement of the ventricles, the fluid-filled spaces inside the brain. It's detected via ultrasound and is one of the most common brain-related findings in prenatal screening, showing up in a small but meaningful percentage of pregnancies.
 
 ## Why This Matters
+Ventriculomegaly's clinical significance depends entirely on how enlarged the ventricles are, measured in millimeters. Mild cases (10-15mm) carry a good prognosis — most children go on to develop normally. Severe cases (>15mm) are frequently linked to underlying structural brain abnormalities and carry meaningfully higher risk. Because the categories that determine risk are separated by just a few millimeters, and because doctors currently take this measurement by hand from ultrasound images, small measurement errors can shift a case into the wrong risk category — with real consequences for counseling and follow-up care.
 
-Ventriculomegaly — enlargement of the brain's fluid-filled ventricles — is one of the most common fetal brain findings on ultrasound, and its clinical significance depends entirely on precise measurement. Mild cases (10-15mm) carry a good prognosis (~92% typical neurodevelopment), while severe cases (>15mm) are frequently linked to underlying structural abnormalities and carry meaningfully higher risk. Because the diagnostic categories are separated by just millimeters, and doctors currently measure by hand from ultrasound images, small errors can shift a case into the wrong risk category — this system automates that measurement with clinical-grade calibration to help make it more consistent.
+## What This System Does
+This project automates that measurement using deep learning. It takes a fetal ultrasound image and:
+1. Identifies the brain within the image
+2. Identifies the ventricles within the brain
+3. Measures the ventricle width, calibrated to the image's real-world scale
+4. Classifies the result as normal, mild, moderate, or severe ventriculomegaly
 
+It also explains *why* it made each measurement (via Grad-CAM visualizations) and estimates its own confidence — so a clinician reviewing its output can see where the model is looking and how sure it is, rather than treating it as a black box.
 
 End-to-end solo project: data pipeline, dual U-Net modeling, measurement calibration, explainability, and evaluation.
 
